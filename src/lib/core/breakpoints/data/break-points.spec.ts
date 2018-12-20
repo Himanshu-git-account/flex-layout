@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import {TestBed, inject, async} from '@angular/core/testing';
+import {sortDescendingPriority} from '../breakpoint-tools';
 
 import {BreakPoint} from '../break-point';
 import {BREAKPOINTS} from '../break-points-token';
@@ -22,13 +23,13 @@ describe('break-point-provider', () => {
       });
     });
     beforeEach(async(inject([BREAKPOINTS], (bps: BreakPoint[]) => {
-      breakPoints = bps;
+      breakPoints = [...bps].sort(sortDescendingPriority);
     })));
 
     it('has the standard breakpoints', () => {
       expect(breakPoints.length).toEqual(DEFAULT_BREAKPOINTS.length);
       expect(breakPoints[0].alias).toEqual('xs');
-      expect(breakPoints[breakPoints.length - 1].alias).toEqual('xl');
+      expect(breakPoints[breakPoints.length - 1].alias).toEqual('gt-xs');
     });
   });
 
