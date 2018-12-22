@@ -21,7 +21,7 @@ describe('break-point-provider', () => {
 
   describe('with default breakpoints only', () => {
     beforeEach(async(inject([BREAKPOINTS], (bps: BreakPoint[]) => {
-      breakPoints = bps;
+      breakPoints = [...bps];
     })));
 
     it('has the only standard default breakpoints without internal custom breakpoints', () => {
@@ -47,7 +47,7 @@ describe('break-point-provider', () => {
       });
     });
     beforeEach(async(inject([BREAKPOINTS], (bps: BreakPoint[]) => {
-      bpList = bps;
+      bpList = [...bps];
     })));
 
     it('has the custom breakpoints', () => {
@@ -85,7 +85,7 @@ describe('break-point-provider', () => {
     });
     // tslint:disable-next-line:no-shadowed-variable
     beforeEach(async(inject([BREAKPOINTS], (breakPoints: BreakPoint[]) => {
-      bpList = breakPoints;
+      bpList = [...breakPoints];
     })));
 
     it('has merged the custom breakpoints as overrides to existing defaults', () => {
@@ -125,7 +125,7 @@ describe('break-point-provider', () => {
       });
     });
     beforeEach(async(inject([BREAKPOINTS], (bps: BreakPoint[]) => {
-      bpList = bps;
+      bpList = [...bps];
     })));
 
     it('has the only the registered custom breakpoints; defaults are excluded.', () => {

@@ -25,7 +25,7 @@ describe('match-media', () => {
 
   // Single async inject to save references; which are used in all tests below
   beforeEach(async(inject([MatchMedia], (service: MockMatchMedia) => {
-    matchMedia = service;      // inject only to manually activate mediaQuery ranges
+    matchMedia = service;      // inject only to manually onMediaChange mediaQuery ranges
   })));
   afterEach(() => {
     matchMedia.clearAll();
@@ -121,7 +121,7 @@ describe('match-media-observable', () => {
     [MediaObserver, MatchMedia, BreakPointRegistry],
     (_mediaObserver: MediaObserver, _matchMedia: MockMatchMedia,
      _breakPoints: BreakPointRegistry) => {
-      matchMedia = _matchMedia;      // inject only to manually activate mediaQuery ranges
+      matchMedia = _matchMedia;      // inject only to manually onMediaChange mediaQuery ranges
       breakPoints = _breakPoints;
       mediaObserver = _mediaObserver;
     })));
@@ -191,7 +191,7 @@ describe('match-media-observable', () => {
   });
 
   /**
-   * Only the ObservableMedia ignores de-activations;
+   * Only the MediaObserver ignores de-activations;
    * MediaMonitor and MatchMedia report both activations and de-activations!
    */
   it('ignores mediaQuery de-activations', () => {
@@ -209,9 +209,10 @@ describe('match-media-observable', () => {
 
     matchMedia.activate(breakPoints.findByAlias('md')!.mediaQuery);
     matchMedia.activate(breakPoints.findByAlias('gt-md')!.mediaQuery);
+    matchMedia.activate(breakPoints.findByAlias('lg')!.mediaQuery);
 
     // 'all' mediaQuery is already active; total count should be (3)
-    expect(activationCount).toEqual(2);
+    expect(activationCount).toEqual(3);
     expect(deactivationCount).toEqual(0);
 
     subscription.unsubscribe();
